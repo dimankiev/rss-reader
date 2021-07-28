@@ -1,11 +1,61 @@
 {
   "version": 3,
   "targets": {
-    "net5.0": {}
+    "net5.0": {
+      "System.ServiceModel.Syndication/6.0.0-preview.6.21352.12": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp3.1/System.ServiceModel.Syndication.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/System.ServiceModel.Syndication.dll": {}
+        },
+        "build": {
+          "buildTransitive/netcoreapp3.1/_._": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "System.ServiceModel.Syndication/6.0.0-preview.6.21352.12": {
+      "sha512": "DGENC5j7Dp4hsVt6vX9i6lfy9QGh1Gskl7RI8Q0fHzy0ZfnFXgnEeWzdurZvfv6gyQnBJXtBtvUJMBKZgxSYaQ==",
+      "type": "package",
+      "path": "system.servicemodel.syndication/6.0.0-preview.6.21352.12",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/netcoreapp2.0/System.ServiceModel.Syndication.targets",
+        "buildTransitive/netcoreapp3.1/_._",
+        "lib/net461/System.ServiceModel.Syndication.dll",
+        "lib/net461/System.ServiceModel.Syndication.xml",
+        "lib/net6.0/System.ServiceModel.Syndication.dll",
+        "lib/net6.0/System.ServiceModel.Syndication.xml",
+        "lib/netcoreapp3.1/System.ServiceModel.Syndication.dll",
+        "lib/netcoreapp3.1/System.ServiceModel.Syndication.xml",
+        "lib/netstandard2.0/System.ServiceModel.Syndication.dll",
+        "lib/netstandard2.0/System.ServiceModel.Syndication.xml",
+        "ref/net461/System.ServiceModel.Syndication.dll",
+        "ref/net461/System.ServiceModel.Syndication.xml",
+        "ref/net6.0/System.ServiceModel.Syndication.dll",
+        "ref/net6.0/System.ServiceModel.Syndication.xml",
+        "ref/netcoreapp3.1/System.ServiceModel.Syndication.dll",
+        "ref/netcoreapp3.1/System.ServiceModel.Syndication.xml",
+        "ref/netstandard2.0/System.ServiceModel.Syndication.dll",
+        "ref/netstandard2.0/System.ServiceModel.Syndication.xml",
+        "runtimes/win/lib/net461/System.ServiceModel.Syndication.dll",
+        "runtimes/win/lib/net461/System.ServiceModel.Syndication.xml",
+        "system.servicemodel.syndication.6.0.0-preview.6.21352.12.nupkg.sha512",
+        "system.servicemodel.syndication.nuspec"
+      ]
+    }
+  },
   "projectFileDependencyGroups": {
-    "net5.0": []
+    "net5.0": [
+      "System.ServiceModel.Syndication >= 6.0.0-preview.6.21352.12"
+    ]
   },
   "packageFolders": {
     "/home/dimankiev/.nuget/packages/": {}
@@ -43,6 +93,12 @@
     "frameworks": {
       "net5.0": {
         "targetAlias": "net5.0",
+        "dependencies": {
+          "System.ServiceModel.Syndication": {
+            "target": "Package",
+            "version": "[6.0.0-preview.6.21352.12, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",

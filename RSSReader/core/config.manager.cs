@@ -23,7 +23,7 @@ namespace RSSReader.core
             if (!File.Exists(_configFilePath))
             {
                 _configFile = new XDocument(
-                    new XDeclaration("1.0.0", "utf-8", "yes"),
+                    new XDeclaration("1.1.0", "utf-8", "yes"),
                     new XElement("RSSFeeds")
                     );
                 _configFile.Save(_configFilePath);
@@ -39,6 +39,20 @@ namespace RSSReader.core
 
         public string AppendFeed(string Name, string Link)
         {
+            // Check whether that Name is already used
+            bool isAvailable = false;
+            try
+            {
+                List<string[]> feeds = GetAllFeeds();
+                string[] feed = feeds.Single(feedParameters => feedParameters[0] == Name);
+            }
+            catch (Exception err)
+            {
+                if (err is InvalidOperationException) isAvailable = true;
+                if (err is ArgumentNullException) return "ConfigMalformed_RSSFeedsNotFound";
+            }
+
+            if (!isAvailable) return "That feed name is already occupied";
             XElement feedsContainer = _configFile.Element("RSSFeeds");
             if (feedsContainer == null) return "ConfigMalformed_RSSFeedsNotFound";
             feedsContainer.Add(new XElement(
@@ -107,7 +121,7 @@ namespace RSSReader.core
             if (feedAttribute == null) return "AttrNotFound";
             feedAttribute.Value = AttrValue;
             _configFile.Save(_configFilePath);
-            return "Success!";
+            return "Success";
         }
 
         public string RemoveFeed(string FeedName)
@@ -115,8 +129,12 @@ namespace RSSReader.core
             XElement feed;
             try
             {
-                feed = _configFile.Elements("RSSFeeds")
-                    .Single(element => element.Attribute("Name").Value == FeedName);
+                feed = _configFile.Element("RSSFeeds")
+                    .Elements("Feed")
+                    .Single(
+                        element => 
+                            element.Attribute("Name").Value == FeedName
+                        );
             }
             catch
             {
@@ -124,7 +142,7 @@ namespace RSSReader.core
             }
             feed.Remove();
             _configFile.Save(_configFilePath);
-            return "Success!";
+            return "Success";
         }
     }
 }

@@ -5,4 +5,8 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="System.ServiceModel.Syndication" Version="6.0.0-preview.6.21352.12" />
+    </ItemGroup>
+
 </Project>

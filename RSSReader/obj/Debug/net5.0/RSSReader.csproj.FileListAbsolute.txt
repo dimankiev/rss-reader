@@ -30,3 +30,5 @@
 /home/dimankiev/Documents/projects/work/cs/hr.task.rss-reader/RSSReader/obj/Debug/net5.0/ref/RSSReader.dll
 /home/dimankiev/Documents/projects/work/cs/hr.task.rss-reader/RSSReader/obj/Debug/net5.0/RSSReader.pdb
 /home/dimankiev/Documents/projects/work/cs/hr.task.rss-reader/RSSReader/obj/Debug/net5.0/RSSReader.genruntimeconfig.cache
+/home/dimankiev/Documents/projects/work/cs/hr.task.rss-reader/RSSReader/bin/Debug/net5.0/System.ServiceModel.Syndication.dll
+/home/dimankiev/Documents/projects/work/cs/hr.task.rss-reader/RSSReader/obj/Debug/net5.0/RSSReader.csproj.CopyComplete

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "USNZLSNAq+TOaTTzNEzMssLY1AuKNVBou20oKq/1pS7zDasNnOkCxTnEic+uby31qbF477PrPT9bYVnYrDsPMQ==",
+  "dgSpecHash": "P2t+D2KIYqWAa30QwwljqThE2wjVKJzIkyiQe41ibZZqUv+656LBwt8Dg1ZPnmge+5AWkChnX3C45JfHhpAa2w==",
   "success": true,
   "projectFilePath": "/home/dimankiev/Documents/projects/work/cs/hr.task.rss-reader/RSSReader/RSSReader.csproj",
   "expectedPackageFiles": [
+    "/home/dimankiev/.nuget/packages/system.servicemodel.syndication/6.0.0-preview.6.21352.12/system.servicemodel.syndication.6.0.0-preview.6.21352.12.nupkg.sha512",
     "/home/dimankiev/.nuget/packages/microsoft.aspnetcore.app.ref/5.0.0/microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512"
   ],
   "logs": []
