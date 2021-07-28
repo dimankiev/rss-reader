@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using RSSReader.core;
+using RSSReader.cli;
 
 namespace RSSReader
 {
@@ -11,12 +12,12 @@ namespace RSSReader
             // First array is for checking that entered command actually exists
             new List<string>() {"add", "read", "edit", "remove", "help", "exit"},
             // Next arrays are for commands description. Used in "help" command
-            new List<string>() {"add [feed name]", "Add new RSS Feed to the app. Name is required"},
-            new List<string>() {"read [feed name]", "Read one RSS Feed. Leave name empty to read all feeds."},
-            new List<string>() {"edit [feed name]", "Edit a RSS Feed in your config."},
-            new List<string>() {"remove [feed name]", "Remove one RSS Feed from the app."},
-            new List<string>() {"help", "Display available commands."},
-            new List<string>() {"exit", "Save the configuration and exit the program."}
+            new List<string>() {"add [feed name]\t\t", "\tAdd new RSS Feed to the app. Name is required"},
+            new List<string>() {"read [feed name]\t", "\tRead one RSS Feed. Leave name empty to read all feeds."},
+            new List<string>() {"edit [feed name]\t", "\tEdit a RSS Feed in your config."},
+            new List<string>() {"remove [feed name]\t", "\tRemove one RSS Feed from the app."},
+            new List<string>() {"help\t\t\t", "\tDisplay available commands."},
+            new List<string>() {"exit\t\t\t", "\tSave the configuration and exit the program."}
         };
 
         private static void GetHelp(string command)
@@ -32,10 +33,10 @@ namespace RSSReader
         }
         static void Main(string[] args)
         {
-            Console.WriteLine("RSS Feed Reader v1.1.2");
+            Console.WriteLine("RSS Feed Reader v1.2.3 by dimankiev");
             Console.WriteLine("Enter 'help' command to get help\n");
             ConfigManager config = new ConfigManager();
-            RssManager manager = new RssManager();
+            RSSManager manager = new RSSManager();
             while (true)
             {
                 Console.Write("RSSReader >> ");
@@ -99,6 +100,48 @@ namespace RSSReader
                         Console.WriteLine("Following messages were returned while editing the feed:");
                         Console.WriteLine($"Editing name: {newNameSetResult}\nEditing URL: {newUrlSetResult}");
                     }
+                }
+                else if (parsedCommand[0] == "read")
+                {
+                    try
+                    {
+                        DisplayManager dm;
+                        if (parsedCommand.Length < 2)
+                        {
+                            var allFeeds = config.GetAllFeeds();
+                            
+                            if (allFeeds.Count < 1)
+                            { Console.WriteLine("There is no feeds added!"); continue; }
+                            
+                            var fetchedFeeds = manager.FetchMany(allFeeds);
+                            dm = new DisplayManager(fetchedFeeds);
+                            dm.Display();
+                        }
+                        else
+                        {
+                            if (!config.FeedExists(parsedCommand[1]))
+                            {
+                                Console.WriteLine("Feed does not exist!");
+                                continue;
+                            }
+
+                            var feedUrl = config.GetFeedLink(parsedCommand[1]);
+                            var fetchedFeed = manager.Fetch(parsedCommand[1], feedUrl);
+                            dm = new DisplayManager(fetchedFeed);
+                            dm.Display();
+                        }
+                    }
+                    catch (Exception error)
+                    {
+                        Console.Clear();
+                        Console.WriteLine($"Following error has been occured while reading feed:\n{error}");
+                    }
+                }
+                else if (parsedCommand[0] == "help")
+                {
+                    Console.WriteLine("Help for RSSReader");
+                    for (int i = 1; i < commands.Count; i++)
+                        Console.WriteLine($"{commands[i][0]}-{commands[i][1]}");
                 }
                 else if (parsedCommand[0] == "exit")
                 {
