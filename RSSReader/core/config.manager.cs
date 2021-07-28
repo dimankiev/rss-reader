@@ -37,6 +37,23 @@ namespace RSSReader.core
             }
         }
 
+        public bool FeedExists(string FeedName)
+        {
+            XElement feed;
+            try
+            {
+                feed = _configFile
+                    .Element("RSSFeeds")
+                    .Elements("Feed")
+                    .Single(element => element.Attribute("Name").Value == FeedName);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        
         public string AppendFeed(string Name, string Link)
         {
             // Check whether that Name is already used
@@ -70,7 +87,9 @@ namespace RSSReader.core
             XElement feed;
             try
             {
-                feed = _configFile.Elements("RSSFeeds")
+                feed = _configFile
+                    .Element("RSSFeeds")
+                    .Elements("Feed")
                     .Single(element => element.Attribute("Name").Value == FeedName);
             }
             catch
@@ -110,7 +129,9 @@ namespace RSSReader.core
             XElement feed;
             try
             {
-                feed = _configFile.Elements("RSSFeeds")
+                feed = _configFile
+                    .Element("RSSFeeds")
+                    .Elements("Feed")
                     .Single(element => element.Attribute("Name").Value == FeedName);
             }
             catch
@@ -129,7 +150,8 @@ namespace RSSReader.core
             XElement feed;
             try
             {
-                feed = _configFile.Element("RSSFeeds")
+                feed = _configFile
+                    .Element("RSSFeeds")
                     .Elements("Feed")
                     .Single(
                         element => 

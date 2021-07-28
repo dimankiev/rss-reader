@@ -32,7 +32,7 @@ namespace RSSReader
         }
         static void Main(string[] args)
         {
-            Console.WriteLine("RSS Feed Reader v1.0.0");
+            Console.WriteLine("RSS Feed Reader v1.1.2");
             Console.WriteLine("Enter 'help' command to get help\n");
             ConfigManager config = new ConfigManager();
             RssManager manager = new RssManager();
@@ -55,7 +55,7 @@ namespace RSSReader
 
                     Console.Write($"Feed({parsedCommand[1]}) URL: ");
                     string feedUrl = Console.ReadLine();
-                    if (feedUrl == null)
+                    if (feedUrl == null || feedUrl.Trim().Length < 11) // 11 symbols minimum: http://o.io
                     { Console.WriteLine("Bad url is entered!"); continue; }
 
                     feedUrl = feedUrl.Trim().ToLower();
@@ -69,6 +69,36 @@ namespace RSSReader
 
                     string result = config.RemoveFeed(parsedCommand[1]);
                     Console.WriteLine($"Feed '{parsedCommand[1]}' remove result: {result}");
+                }
+                else if (parsedCommand[0] == "edit")
+                {
+                    if (parsedCommand.Length < 2)
+                    { GetHelp(parsedCommand[0]); continue; }
+
+                    bool exists = config.FeedExists(parsedCommand[1]);
+                    if (!exists)
+                    { Console.WriteLine("Feed does not exist"); continue; }
+
+                    Console.WriteLine("Leave a field empty to save parameters previous value");
+                    
+                    Console.Write("RSSFeed Editor [Name]: ");
+                    string newNameSetResult = "", newName = Console.ReadLine();
+                    if (newName is not null && newName.Trim().Length >= 1)
+                        newNameSetResult = config.EditFeed(parsedCommand[1], "Name", newName);
+                    else newName = parsedCommand[1];
+                    
+                    Console.Write("RSSFeed Editor [Feed URL]: ");
+                    string newUrlSetResult = "", newUrl = Console.ReadLine();
+                    if (newUrl is not null && newUrl.Trim().Length > 11)
+                        newUrlSetResult = config.EditFeed(newName, "Link", newUrl);
+
+                    if (newNameSetResult == "Success" && newUrlSetResult == "Success")
+                    { Console.WriteLine($"Feed '{newName}' was edited successfully!"); }
+                    else
+                    {
+                        Console.WriteLine("Following messages were returned while editing the feed:");
+                        Console.WriteLine($"Editing name: {newNameSetResult}\nEditing URL: {newUrlSetResult}");
+                    }
                 }
                 else if (parsedCommand[0] == "exit")
                 {
